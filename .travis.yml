@@ -13,13 +13,13 @@ env:
   matrix:
   - TESTS="style unit"  CHEF_VERSION="~> 11.0"
   - TESTS="style unit"  CHEF_VERSION="~> 12.0"
-  - TESTS="integration" KITCHEN_REGEXP=centos-66
-  - TESTS="integration" KITCHEN_REGEXP=centos-71
-  - TESTS="integration" KITCHEN_REGEXP=debian-6010
-  - TESTS="integration" KITCHEN_REGEXP=debian-78
+  - TESTS="integration" KITCHEN_REGEXP=centos-6
+  - TESTS="integration" KITCHEN_REGEXP=debian-7
+  - TESTS="integration" KITCHEN_REGEXP=debian-8
   - TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
   - TESTS="integration" KITCHEN_REGEXP=ubuntu-1404
   - TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
+  - TESTS="integration" KITCHEN_REGEXP=centos-7
 
 matrix:
   exclude:
@@ -29,30 +29,25 @@ matrix:
 # Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
   - rvm: 2.2
     env: TESTS="style unit"  CHEF_VERSION="~> 11.0"
+# Disable integration tests in old Ruby versions:
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+    env: TESTS="integration" KITCHEN_REGEXP=centos-6
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+    env: TESTS="integration" KITCHEN_REGEXP=centos-6
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+    env: TESTS="integration" KITCHEN_REGEXP=centos-6
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+    env: TESTS="integration" KITCHEN_REGEXP=debian-7
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+    env: TESTS="integration" KITCHEN_REGEXP=debian-7
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+    env: TESTS="integration" KITCHEN_REGEXP=debian-7
   - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
+    env: TESTS="integration" KITCHEN_REGEXP=debian-8
   - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
+    env: TESTS="integration" KITCHEN_REGEXP=debian-8
   - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
-  - rvm: 1.9.3
-    env: TESTS="integration" KITCHEN_REGEXP=debian-78
-  - rvm: 2.0.0
-    env: TESTS="integration" KITCHEN_REGEXP=debian-78
-  - rvm: 2.1
-    env: TESTS="integration" KITCHEN_REGEXP=debian-78
+    env: TESTS="integration" KITCHEN_REGEXP=debian-8
   - rvm: 1.9.3
     env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
   - rvm: 2.0.0
@@ -71,6 +66,12 @@ matrix:
     env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
   - rvm: 2.1
     env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=centos-7
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=centos-7
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=centos-7
 
 bundler_args: --without doc integration_vagrant integration_cloud guard
 
