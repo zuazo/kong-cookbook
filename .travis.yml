@@ -7,19 +7,77 @@ rvm:
 sudo: true
 
 env:
-- CHEF_VERSION="~> 11.0"
-- CHEF_VERSION="~> 12.0"
+  global:
+  - KITCHEN_ARGS="--destroy=always"
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml
+  matrix:
+  - TESTS="style unit"  CHEF_VERSION="~> 11.0"
+  - TESTS="style unit"  CHEF_VERSION="~> 12.0"
+  - TESTS="integration" KITCHEN_REGEXP=centos-66
+  - TESTS="integration" KITCHEN_REGEXP=centos-71
+  - TESTS="integration" KITCHEN_REGEXP=debian-6010
+  - TESTS="integration" KITCHEN_REGEXP=debian-78
+  - TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
+  - TESTS="integration" KITCHEN_REGEXP=ubuntu-1404
+  - TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
 
 matrix:
   exclude:
 # Chef 12 requires Ruby 2:
   - rvm: 1.9.3
-    env: CHEF_VERSION="~> 12.0"
+    env: TESTS="style unit"  CHEF_VERSION="~> 12.0"
 # Chef 11 cannot resolve dependencies in Ruby 2.2 (mixlib-shellout):
   - rvm: 2.2
-    env: CHEF_VERSION="~> 11.0"
+    env: TESTS="style unit"  CHEF_VERSION="~> 11.0"
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=centos-66
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=centos-71
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=debian-6010
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=debian-78
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=debian-78
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=debian-78
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1204
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1404
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1404
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1404
+  - rvm: 1.9.3
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
+  - rvm: 2.0.0
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
+  - rvm: 2.1
+    env: TESTS="integration" KITCHEN_REGEXP=ubuntu-1504
 
-bundler_args: --without doc integration integration_cloud guard
+bundler_args: --without doc integration_vagrant integration_cloud guard
+
+before_script:
+- source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/0.1.0/scripts/start_docker.sh)
 
 script:
-- bundle exec rake style unit
+- travis_retry bundle exec rake $TESTS
+
+after_failure: cat docker_daemon.log
