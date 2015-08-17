@@ -120,7 +120,7 @@ include_recipe 'kong'
 
 See the [`cassandra-dse` cookbook documentation](https://supermarket.chef.io/cookbooks/cassandra-dse).
 
-By default, this cookbook installs a local Cassandra server if the `'hosts'` attribute is not set or is set to `'localhost'`. You can use the `node['kong']['manage_cassandra']` attribute to force this behavior.
+By default, this cookbook installs a local Cassandra server if the `'hosts'` attribute is not set or includes `'localhost'`. You can use the `node['kong']['manage_cassandra']` attribute to force this behavior.
 
 ## The HTTPS Certificate
 
