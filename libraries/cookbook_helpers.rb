@@ -73,6 +73,23 @@ class KongCookbook
       ::File.join(Chef::Config[:file_cache_path], package_name)
     end
 
+    # Calculates whether an object should be managed by the cookbook or not.
+    #
+    # This is used to calculate the `node['kong']['manage_cassandra']` and
+    # `node['kong']['manage_ssl_certificate']` attributes.
+    #
+    # @param [String] the name of the object to manage.
+    # @return [Boolean] whether the object should be managed by the cookbook.
+    # @example
+    #   self.calculate_management('cassandra') #=> true
+    # @private
+    def calculate_management(obj)
+      unless node['kong']["manage_#{obj}"].nil?
+        return node['kong']["manage_#{obj}"]
+      end
+      node.default['kong']["manage_#{obj}"] = send("calculate_manage_#{obj}")
+    end
+
     # Gets Cassandra properties from node attributes from
     # `node['kong']['kong.yml']['databases_available']['cassandra']\
     # ['properties']`
@@ -164,10 +181,7 @@ class KongCookbook
     # @see #calculate_manage_cassandra
     # @api public
     def manage_cassandra
-      unless node['kong']['manage_cassandra'].nil?
-        return node['kong']['manage_cassandra']
-      end
-      node.default['kong']['manage_cassandra'] = calculate_manage_cassandra
+      calculate_management('cassandra')
     end
 
     # Calculates whether the SSL certificate should be managed by the cookbook
@@ -198,11 +212,7 @@ class KongCookbook
     # @see #calculate_manage_ssl_certificate
     # @api public
     def manage_ssl_certificate
-      unless node['kong']['manage_ssl_certificate'].nil?
-        return node['kong']['manage_ssl_certificate']
-      end
-      node.default['kong']['manage_ssl_certificate'] =
-        calculate_manage_ssl_certificate
+      calculate_management('ssl_certificate')
     end
   end
 end
