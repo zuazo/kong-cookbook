@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+  - '.kitchen'
+  Include:
+  - 'files/*/*.rb'
+  - '**/*.rb.erb'

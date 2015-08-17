@@ -1,0 +1,28 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+# If you add new platforms below, include them in the .travis.yml file matrix
+platforms:
+- name: centos-6 # does not work
+  driver_config:
+    # Fixes: could not open session
+    privileged: true
+- name: debian-7
+  run_list: recipe[apt]
+- name: debian-8
+  run_list: recipe[apt]
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-15.04
+  run_list: recipe[apt]
+
+# Non-official images with systemd
+- name: centos-7
+  driver_config:
+    # https://registry.hub.docker.com/u/milcom/centos7-systemd/dockerfile/
+    image: milcom/centos7-systemd
+    privileged: true
