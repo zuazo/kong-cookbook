@@ -4,8 +4,8 @@ Kong Cookbook
 [![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/zuazo/kong-cookbook)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/kong-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/kong-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/kong-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/kong-cookbook)
-[![Build Status](http://img.shields.io/travis/zuazo/kong-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/kong-cookbook)
-[![Coverage Status](http://img.shields.io/coveralls/zuazo/kong-cookbook.svg?style=flat)](https://coveralls.io/r/zuazo/kong-cookbook?branch=master)
+[![Build Status](http://img.shields.io/travis/zuazo/kong-cookbook/0.1.0.svg?style=flat)](https://travis-ci.org/zuazo/kong-cookbook)
+[![Coverage Status](http://img.shields.io/coveralls/zuazo/kong-cookbook/0.1.0.svg?style=flat)](https://coveralls.io/r/zuazo/kong-cookbook?branch=0.1.0)
 [![Inline docs](http://inch-ci.org/github/zuazo/kong-cookbook.svg?branch=master&style=flat)](http://inch-ci.org/github/zuazo/kong-cookbook)
 
 [Chef](https://www.chef.io/) cookbook to install [Kong](https://getkong.org/): An open-source management layer for APIs, delivering high performance and reliability.
