@@ -19,7 +19,7 @@ matrix:
   - rvm: 2.2
     env: CHEF_VERSION="~> 11.0"
 
-bundler_args: --without doc integration integration_cloud guard
+bundler_args: --without doc integration integration_docker integration_vagrant integration_cloud guard
 
 script:
 - bundle exec rake style unit
