@@ -37,7 +37,10 @@ template '/etc/kong/kong.yml' do
   source 'kong.yml.erb'
   cookbook 'kong'
   mode 00644
-  variables config: node['kong']['kong.yml']
+  variables(
+    manage_ssl_certificate: recipe.manage_ssl_certificate,
+    config: node['kong']['kong.yml']
+  )
   notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
   notifies :restart, 'service[kong]'
 end

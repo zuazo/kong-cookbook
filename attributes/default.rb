@@ -90,3 +90,6 @@ end
 default['kong']['manage_ssl_certificate'] = nil
 default['kong']['wait_for_cassandra'] = 300
 default['kong']['manage_cassandra'] = nil
+
+default['kong']['cert_path'] = '/usr/local/kong/ssl/kong-default.crt'
+default['kong']['key_path'] = '/usr/local/kong/ssl/kong-default.key'

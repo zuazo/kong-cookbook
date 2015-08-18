@@ -84,11 +84,16 @@ nginx: |
 
       ssl_certificate_by_lua 'kong.exec_plugins_certificate()';
 
+      <% if @manage_ssl_certificate -%>
       <%=
         @ssl_cert = '{{ssl_cert}}'
         @ssl_key = '{{ssl_key}}'
         render 'nginx.erb', cookbook: 'ssl_certificate'
       %>
+      <% else -%>
+      ssl_certificate {{ssl_cert}};
+      ssl_certificate_key {{ssl_key}};
+      <% end -%>
 
       location / {
         default_type 'text/plain';
