@@ -84,3 +84,28 @@ You can run the tests in the cloud instead of using vagrant. First, you must set
 Then use the `integration:cloud` rake task to run the tests:
 
     $ bundle exec rake integration:cloud
+
+## Using Vagrant with the Vagrantfile
+
+### Vagrantfile Requirements
+
+* ChefDK: https://downloads.chef.io/chef-dk/
+* Berkhelf and Omnibus vagrant plugins:
+```
+$ vagrant plugin install vagrant-berkshelf vagrant-omnibus
+```
+* The path correctly set for ChefDK:
+```
+$ export PATH="/opt/chefdk/bin:${PATH}"
+```
+### Vagrantfile Usage
+
+    $ vagrant up
+
+To run Chef again on the same machine:
+
+    $ vagrant provision
+
+To destroy the machine:
+
+    $ vagrant destroy
