@@ -7,6 +7,7 @@ Kong Cookbook
 [![Build Status](http://img.shields.io/travis/zuazo/kong-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/kong-cookbook)
 [![Coverage Status](http://img.shields.io/coveralls/zuazo/kong-cookbook.svg?style=flat)](https://coveralls.io/r/zuazo/kong-cookbook?branch=master)
 [![Inline docs](http://inch-ci.org/github/zuazo/kong-cookbook.svg?branch=master&style=flat)](http://inch-ci.org/github/zuazo/kong-cookbook)
+[![Circle CI](https://circleci.com/gh/zuazo/kong-cookbook/tree/master.svg?style=shield)](https://circleci.com/gh/zuazo/kong-cookbook/tree/master)
 
 [Chef](https://www.chef.io/) cookbook to install [Kong](https://getkong.org/): An open-source management layer for APIs, delivering high performance and reliability.
 
