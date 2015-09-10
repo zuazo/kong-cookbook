@@ -26,9 +26,8 @@ Please, [let me know](https://github.com/zuazo/kong-cookbook/issues/new?title=I%
 ## Required Cookbooks
 
 * [cassandra-dse](https://supermarket.chef.io/cookbooks/cassandra-dse)
-* [nginx](https://supermarket.chef.io/cookbooks/nginx)
-* [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
 * [netstat](https://supermarket.chef.io/cookbooks/netstat)
+* [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
 
 ## Required Applications
 
