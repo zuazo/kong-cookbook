@@ -4,7 +4,9 @@ rvm:
 - 2.1
 - 2.2
 
-sudo: true
+sudo: false
+
+cache: bundler
 
 env:
 - CHEF_VERSION="~> 11.0"
