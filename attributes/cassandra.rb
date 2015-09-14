@@ -20,8 +20,4 @@
 #
 
 default['cassandra']['notify_restart'] = true
-
-if node['cassandra']['version'] == '2.1.7'
-  default['cassandra']['setup_jamm'] = true
-  default['cassandra']['jamm_version'] = '0.2.8'
-end
+default['cassandra']['setup_jamm'] = true

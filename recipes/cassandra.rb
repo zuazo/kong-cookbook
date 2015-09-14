@@ -26,24 +26,23 @@ package 'initscripts' if node['platform_family'] == 'rhel'
 
 package 'tar'
 
-if node['cassandra']['cluster_name'].nil?
-  node.default['cassandra']['cluster_name'] = 'kong'
+if node['cassandra']['config']['cluster_name'].nil?
+  node.default['cassandra']['config']['cluster_name'] = 'kong'
   node.default['cassandra']['install_method'] = 'tarball'
   Chef::Log.warn(
-    "Please set the `node['cassandra']['cluster_name']` and "\
+    "Please set the `node['cassandra']['config']['cluster_name']` and "\
     "`node['cassandra']['install_method']` attributes. See the documentation "\
     'here: https://supermarket.chef.io/cookbooks/cassandra-dse'
   )
 end
 
 cassandra_port = cassandra_localhost_port
-node.default['cassandra']['native_transport_port'] = cassandra_port
+node.default['cassandra']['config']['native_transport_port'] = cassandra_port
 
 include_recipe 'cassandra-dse'
 
 # Wait until Cassandra is UP:
 
-# package 'lsof'
 include_recipe 'netstat'
 
 execute 'check "wait for cassandra" requirements' do

@@ -40,7 +40,7 @@ supports 'centos'
 supports 'debian'
 supports 'ubuntu'
 
-depends 'cassandra-dse', '~> 3.4'
+depends 'cassandra-dse', '~> 4.0'
 depends 'netstat', '~> 0.1.0' # Required to check cassandra status
 depends 'ssl_certificate', '~> 1.1'
 

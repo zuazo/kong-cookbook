@@ -61,7 +61,7 @@ describe 'kong::cassandra', order: :random do
 
     it 'set cluster name' do
       chef_run
-      expect(node['cassandra']['cluster_name']).to eq('kong')
+      expect(node['cassandra']['config']['cluster_name']).to eq('kong')
     end
 
     it 'set install method to "tarball"' do
@@ -76,7 +76,7 @@ describe 'kong::cassandra', order: :random do
   end
 
   context 'when cassandra cluster name is set' do
-    before { node.set['cassandra']['cluster_name'] = 'cluster1' }
+    before { node.set['cassandra']['config']['cluster_name'] = 'cluster1' }
 
     it 'does not print a Chef warning' do
       expect(Chef::Log)

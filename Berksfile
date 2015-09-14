@@ -22,10 +22,6 @@ end
 metadata
 cookbook 'apt'
 cookbook 'freebsd'
-# https://github.com/michaelklishin/cassandra-chef-cookbook/pull/202
-cookbook 'cassandra-dse',
-         git: 'https://github.com/michaelklishin/cassandra-chef-cookbook.git',
-         ref: 'fbb98e8a86ccfde8eb17d62ed03d00571a536a5a'
 
 # Minitest Chef Handler
 # More info at https://github.com/calavera/minitest-chef-handler
