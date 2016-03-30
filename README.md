@@ -32,7 +32,7 @@ Please, [let me know](https://github.com/zuazo/kong-cookbook/issues/new?title=I%
 
 ## Required Applications
 
-* Ruby `1.9.3` or higher.
+* Ruby `2.0.0` or higher.
 
 Attributes
 ==========
