@@ -39,12 +39,13 @@ Attributes
 
 | Attribute                                | Default      | Description                      |
 |:-----------------------------------------|:-------------|:---------------------------------|
-| `node['kong']['version']`                | `'0.4.2'`    | Kong version to install.
+| `node['kong']['version']`                | `'0.7.0'`    | Kong version to install.
 | `node['kong']['mirror']`                 | *calculated* | Kong URL path without including the file name.
 | `node['kong']['kong.yml']`               | *calculated* | Kong *YAML* configuration options. See [the default configuration values](https://github.com/zuazo/kong-cookbook/blob/master/attributes/configuration.rb).
 | `node['kong']['manage_ssl_certificate']` | *calculated* | Whether to manage HTTPS certificate creation using the [`ssl_certificate`](https://supermarket.chef.io/cookbooks/ssl_certificate) cookbook.
 | `node['kong']['manage_cassandra']`       | *calculated* | Whether to manage Cassandra server installation using the [`cassandra-dse`](https://supermarket.chef.io/cookbooks/cassandra-dse) cookbook.
 | `node['kong']['wait_for_cassandra']`     | `300`        | Time in seconds to wait for Cassandra to start. Only used with `manage_cassandra` enabled.
+| `node['kong']['pid_file']`               | *calculated | Kong nginx PID file path.
 
 ## Platform Support Related Attributes
 
@@ -166,7 +167,7 @@ License and Author
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@zuazo.org>)
-| **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
+| **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");

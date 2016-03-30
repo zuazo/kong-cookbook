@@ -3,7 +3,7 @@
 # Cookbook Name:: kong
 # Attributes:: configuration
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,55 +19,18 @@
 # limitations under the License.
 #
 
-## Available plugins on this server
-default['kong']['kong.yml']['plugins_available'] = %w(
-  ssl
-  keyauth
-  basicauth
-  oauth2
-  ratelimiting
-  tcplog
-  udplog
-  filelog
-  httplog
-  cors
-  request_transformer
-  response_transformer
-  requestsizelimiting
-  ip_restriction
-  mashape-analytics
-)
+default['kong']['kong.yml'] = Mash.new
 
-## Port configuration
-default['kong']['kong.yml']['proxy_port'] = 8000
-default['kong']['kong.yml']['proxy_ssl_port'] = 8443
-default['kong']['kong.yml']['admin_api_port'] = 8001
-
-## Secondary port configuration
-default['kong']['kong.yml']['dnsmasq_port'] = 8053
-
-## Specify the DAO to use
+# Specify which database to use:
 default['kong']['kong.yml']['database'] = 'cassandra'
 
-## Databases configuration
-default_cassandra =
-  default['kong']['kong.yml']['databases_available']['cassandra']['properties']
-
-default_cassandra['hosts'] = %w(localhost:9042)
-default_cassandra['timeout'] = 1000
+# Cassandra configuration:
+default_cassandra = default['kong']['kong.yml']['cassandra']
+default_cassandra['contact_points'] = %w(localhost:9042)
 default_cassandra['keyspace'] = 'kong'
-default_cassandra['keepalive'] = 60_000 # in milliseconds
+default_cassandra['timeout'] = 5000
 
-## Cassandra cache configuration
-default['kong']['kong.yml']['database_cache_expiration'] = 5 # in seconds
-
-## SSL Settings
-## (Uncomment the two properties below to set your own certificate)
+# The path to the SSL certificate and key that Kong will use when listening on
+# the `https` port:
 default['kong']['kong.yml']['ssl_cert_path'] = nil
 default['kong']['kong.yml']['ssl_key_path'] = nil
-
-## Sends anonymous error reports
-default['kong']['kong.yml']['send_anonymous_reports'] = true
-
-## In-memory cache size (MB)
-default['kong']['kong.yml']['memory_cache_size'] = 128

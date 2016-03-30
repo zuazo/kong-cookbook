@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,7 @@ describe 'kong::default', order: :random do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
-  let(:set_cassandra_properties) do
-    node.set['kong']['kong.yml']['databases_available']['cassandra']\
-      ['properties']
-  end
+  let(:set_cassandra_properties) { node.set['kong']['kong.yml']['cassandra'] }
 
   it 'includes cassandra recipe' do
     expect(chef_run).to include_recipe('kong::cassandra')
@@ -49,7 +46,7 @@ describe 'kong::default', order: :random do
   end
 
   context 'with a local cassandra server' do
-    before { set_cassandra_properties['hosts'] = %w(localhost:9042) }
+    before { set_cassandra_properties['contact_points'] = %w(localhost:9042) }
 
     it 'includes cassandra recipe' do
       expect(chef_run).to include_recipe('kong::cassandra')
@@ -58,7 +55,8 @@ describe 'kong::default', order: :random do
 
   context 'with one cassandra server on local machine' do
     before do
-      set_cassandra_properties['hosts'] = %w(localhost:9042 remote:9042)
+      set_cassandra_properties['contact_points'] =
+        %w(localhost:9042 remote:9042)
     end
 
     it 'includes cassandra recipe' do
@@ -67,7 +65,7 @@ describe 'kong::default', order: :random do
   end
 
   context 'with a remote cassandra' do
-    before { set_cassandra_properties['hosts'] = %w(remote:9042) }
+    before { set_cassandra_properties['contact_points'] = %w(remote:9042) }
 
     it 'does not include cassandra recipe' do
       expect(chef_run).to_not include_recipe('kong::cassandra')
@@ -77,6 +75,24 @@ describe 'kong::default', order: :random do
   %w(_from_package _configuration _service).each do |recipe|
     it "includes #{recipe} recipe" do
       expect(chef_run).to include_recipe("kong::#{recipe}")
+    end
+  end
+
+  context 'with version 0.5.4' do
+    before { node.set['kong']['version'] = '0.5.4' }
+
+    it 'has kong.pid as pid file' do
+      chef_run
+      expect(node['kong']['pid_file']).to eq '/usr/local/kong/kong.pid'
+    end
+  end
+
+  context 'with version 0.6.0' do
+    before { node.set['kong']['version'] = '0.6.0' }
+
+    it 'has nginx.pid as pid file' do
+      chef_run
+      expect(node['kong']['pid_file']).to eq '/usr/local/kong/nginx.pid'
     end
   end
 end

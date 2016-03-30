@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +75,7 @@ describe KongCookbook::KongServiceProvider, order: :random do
     it 'sets status command to kill -0 PID' do
       provider
       expect(new_resource.status_command)
-        .to eq('kill -0 $(cat /usr/local/kong/kong.pid)')
+        .to eq('kill -0 $(cat /usr/local/kong/nginx.pid)')
     end
   end # context #initialize
 

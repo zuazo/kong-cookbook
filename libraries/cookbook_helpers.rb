@@ -3,7 +3,7 @@
 # Cookbook Name:: kong
 # Library:: cookbook_helpers
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
@@ -91,8 +91,7 @@ class KongCookbook
     end
 
     # Gets Cassandra properties from node attributes from
-    # `node['kong']['kong.yml']['databases_available']['cassandra']\
-    # ['properties']`
+    # `node['kong']['kong.yml']['cassandra']`
     #
     # @return [Mash] Cassandra properties.
     # @example
@@ -101,7 +100,7 @@ class KongCookbook
     #     #    "keepalive"=>60000}
     # @api public
     def cassandra_properties
-      node['kong']['kong.yml']['databases_available']['cassandra']['properties']
+      node['kong']['kong.yml']['cassandra']
     end
 
     # Gets the Cassandra hosts from Node attributes.
@@ -111,7 +110,7 @@ class KongCookbook
     #   self.cassandra_hosts #=> ["localhost:9042", "db.example.com:9042"]
     # @api public
     def cassandra_hosts
-      cassandra_properties['hosts']
+      cassandra_properties['contact_points']
     end
 
     # Gets the Cassandras hosts in local machine searching in
@@ -155,15 +154,15 @@ class KongCookbook
     # Calculates whether the Cassandra installation should be managed by the
     # cookbook or not based only on the **Kong configuration**.
     #
-    # Returns `true` if the `properties['hosts']` value includes a *localhost*
-    # machine: `'localhost'` or `'127.0.0.1'`.
+    # Returns `true` if the `properties['contact_points']` value includes a
+    # *localhost* machine: `'localhost'` or `'127.0.0.1'`.
     #
     # @return [Boolean] `true` if Cassandra should be installed locally.
     # @example
     #   self.calculate_manage_cassandra #=> true
     # @api public
     def calculate_manage_cassandra
-      hosts = [cassandra_properties['hosts']].flatten
+      hosts = [cassandra_hosts].flatten
       hosts = hosts.map { |x| x.split(':', 2).first }
       !(hosts & %w(localhost 127.0.0.1)).empty?
     end

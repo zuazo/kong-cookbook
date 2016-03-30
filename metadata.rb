@@ -52,7 +52,7 @@ attribute 'kong/version',
           description: 'Kong version to install.',
           type: 'string',
           required: 'optional',
-          default: '0.4.2'
+          default: '0.7.0'
 
 attribute 'kong/mirror',
           display_name: 'kong mirror',
@@ -96,6 +96,13 @@ attribute 'kong/wait_for_cassandra',
           type: 'string',
           required: 'optional',
           default: 300
+
+attribute 'kong/pid_file',
+          display_name: 'kong pid file',
+          description: 'Kong nginx PID file path.',
+          type: 'string',
+          required: 'optional',
+          calculated: true
 
 attribute 'kong/required_packages',
           display_name: 'kong required packages',

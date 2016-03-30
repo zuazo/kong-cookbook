@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,18 +30,15 @@ describe KongCookbook::Helpers, order: :random do
   let(:node) { Chef::Node.new }
   let(:version) { '1.0.0' }
   let(:mirror) { 'http://example.com/' }
-  let(:set_cassandra) do
-    node.set['kong']['kong.yml']['databases_available']['cassandra']
-  end
   let(:cassandra_hosts) { %w(A:9042 B:9042 C:9042) }
-  let(:cassandra_properties) { Mash.new(hosts: cassandra_hosts) }
+  let(:cassandra_properties) { Mash.new(contact_points: cassandra_hosts) }
   before do
     Chef::Config[:file_cache_path] = '/tmp'
     allow(helpers).to receive(:node).and_return(node)
     node.set['kong']['version'] = version
     node.set['kong']['package_file'] = 'kong_package_%{version}'
     node.set['kong']['mirror'] = mirror
-    set_cassandra['properties'] = cassandra_properties
+    node.set['kong']['kong.yml']['cassandra'] = cassandra_properties
   end
 
   context '#substitutions' do
@@ -119,38 +116,32 @@ describe KongCookbook::Helpers, order: :random do
     subject { helpers.calculate_manage_cassandra }
 
     context 'with localhost' do
-      before { set_cassandra['properties']['hosts'] = 'localhost:9042' }
+      let(:cassandra_hosts) { 'localhost:9042' }
       it { should be(true) }
     end
 
     context 'with 127.0.0.1' do
-      before { set_cassandra['properties']['hosts'] = '127.0.0.1:9042' }
+      let(:cassandra_hosts) { '127.0.0.1:9042' }
       it { should be(true) }
     end
 
     context 'with one extarn host' do
-      before { set_cassandra['properties']['hosts'] = 'external:9042' }
+      let(:cassandra_hosts) { 'external:9042' }
       it { should be(false) }
     end
 
     context 'with multiple hosts including localhost' do
-      before do
-        set_cassandra['properties']['hosts'] = %w(external:9042 localhost:9042)
-      end
+      let(:cassandra_hosts) { %w(external:9042 localhost:9042) }
       it { should be(true) }
     end
 
     context 'with multiple hosts including 127.0.0.1' do
-      before do
-        set_cassandra['properties']['hosts'] = %w(external:9042 127.0.0.1:9042)
-      end
+      let(:cassandra_hosts) { %w(external:9042 127.0.0.1:9042) }
       it { should be(true) }
     end
 
     context 'with multiple hosts external' do
-      before do
-        set_cassandra['properties']['hosts'] = %w(hostA:9042 hostB:9042)
-      end
+      let(:cassandra_hosts) { %w(hostA:9042 hostB:9042) }
       it { should be(false) }
     end
   end # context #calculate_manage_cassandra
