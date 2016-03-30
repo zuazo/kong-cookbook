@@ -1,7 +1,9 @@
 Kong Cookbook
 =============
+[![GitHub](http://img.shields.io/badge/github-zuazo/kong--cookbook-blue.svg?style=flat)](https://github.com/zuazo/kong-cookbook)
+[![License](https://img.shields.io/github/license/zuazo/kong-cookbook.svg?style=flat)](#license-and-author)
+
 [![Cookbook Version](https://img.shields.io/cookbook/v/kong.svg?style=flat)](https://supermarket.chef.io/cookbooks/kong)
-[![GitHub Source](https://img.shields.io/badge/source-GitHub-blue.svg?style=flat)](https://github.com/zuazo/kong-cookbook)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/kong-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/kong-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/zuazo/kong-cookbook.svg?style=flat)](https://codeclimate.com/github/zuazo/kong-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/kong-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/kong-cookbook)
