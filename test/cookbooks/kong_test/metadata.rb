@@ -2,7 +2,7 @@
 #
 # Cookbook Name:: kong_test
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,4 +29,4 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
 
 depends 'kong'
-depends 'nokogiri', '~> 0.1.4'
+depends 'build-essential', '~> 3.0'

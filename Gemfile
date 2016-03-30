@@ -31,7 +31,7 @@ group :unit do
 end
 
 group :integration do
-  gem 'test-kitchen', '~> 1.4'
+  gem 'test-kitchen', '~> 1.5'
 end
 
 group :integration_docker do
