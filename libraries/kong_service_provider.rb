@@ -168,9 +168,9 @@ class KongCookbook
     #     run_within_ulimit { super }
     #   end
     # @api public
-    def run_within_ulimit(&block)
+    def run_within_ulimit
       old_limit = ulimit_nofile_minimum(4096)
-      value = block.call
+      value = yield
       ulimit_nofile(old_limit)
       value
     end

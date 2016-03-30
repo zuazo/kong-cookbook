@@ -42,7 +42,7 @@ when 'debian'
       default['kong']['package_file'] = 'kong-%{version}.jessie_all.deb'
       default['kong']['package_checksum'] =
         'e34166fe1616819ebae99f94b131335f905b2119ef4ba10e9ecf1d077a33b9dc'
-    else fail "Unsupported Debian version: #{node['platform_version']}"
+    else raise "Unsupported Debian version: #{node['platform_version']}"
     end
   when 'ubuntu'
     default['kong']['required_packages'] =
@@ -60,7 +60,7 @@ when 'debian'
       default['kong']['package_file'] = 'kong-%{version}.vivid_all.deb'
       default['kong']['package_checksum'] =
         'b6e2b571f90cb2974e6dbbd46e9389b968d1f9d36463514e0e4a8890891dd426'
-    else fail "Unsupported Ubuntu version: #{node['platform_version']}"
+    else raise "Unsupported Ubuntu version: #{node['platform_version']}"
     end
   end
 when 'rhel'
@@ -77,14 +77,14 @@ when 'rhel'
   when 7
     default['kong']['package_checksum'] =
       '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
-  else fail "Unsupported CentOS version: #{node['platform_version']}"
+  else raise "Unsupported CentOS version: #{node['platform_version']}"
   end
 when 'fedora'
   default['kong']['required_packages'] = %w(sudo)
   default['kong']['package_file'] = 'kong-%{version}.el7.noarch.rpm'
   default['kong']['package_checksum'] =
     '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
-else fail "Unsupported platform family: #{node['platform_family']}"
+else raise "Unsupported platform family: #{node['platform_family']}"
 end
 
 default['kong']['manage_ssl_certificate'] = nil
@@ -92,7 +92,7 @@ default['kong']['wait_for_cassandra'] = 300
 default['kong']['manage_cassandra'] = nil
 
 if Gem::Requirement.new('>= 0.6.0')
-   .satisfied_by?(Gem::Version.new(node['kong']['version']))
+                   .satisfied_by?(Gem::Version.new(node['kong']['version']))
   default['kong']['pid_file'] = '/usr/local/kong/nginx.pid'
 else
   default['kong']['pid_file'] = '/usr/local/kong/kong.pid'

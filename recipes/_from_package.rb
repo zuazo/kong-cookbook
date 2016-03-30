@@ -47,5 +47,5 @@ when 'rhel', 'fedora'
     options '--nogpgcheck'
     action :install
   end
-else fail "Unsupported platform family: #{node['platform_family']}"
+else raise "Unsupported platform family: #{node['platform_family']}"
 end
