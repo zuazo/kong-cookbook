@@ -78,7 +78,7 @@ class KongCookbook
     # This is used to calculate the `node['kong']['manage_cassandra']` and
     # `node['kong']['manage_ssl_certificate']` attributes.
     #
-    # @param [String] the name of the object to manage.
+    # @param obj [String] the name of the object to manage.
     # @return [Boolean] whether the object should be managed by the cookbook.
     # @example
     #   self.calculate_management('cassandra') #=> true
