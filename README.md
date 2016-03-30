@@ -45,7 +45,7 @@ Attributes
 | `node['kong']['manage_ssl_certificate']` | *calculated* | Whether to manage HTTPS certificate creation using the [`ssl_certificate`](https://supermarket.chef.io/cookbooks/ssl_certificate) cookbook.
 | `node['kong']['manage_cassandra']`       | *calculated* | Whether to manage Cassandra server installation using the [`cassandra-dse`](https://supermarket.chef.io/cookbooks/cassandra-dse) cookbook.
 | `node['kong']['wait_for_cassandra']`     | `300`        | Time in seconds to wait for Cassandra to start. Only used with `manage_cassandra` enabled.
-| `node['kong']['pid_file']`               | *calculated | Kong nginx PID file path.
+| `node['kong']['pid_file']`               | *calculated* | Kong nginx PID file path.
 
 ## Platform Support Related Attributes
 
