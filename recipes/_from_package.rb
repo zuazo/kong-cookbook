@@ -3,7 +3,7 @@
 # Cookbook Name:: kong
 # Recipe:: _from_package
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2015 Xabier de Zuazo
+# Copyright:: Copyright (c) 2015-2016 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,11 +39,13 @@ case node['platform_family']
 when 'debian'
   dpkg_package 'kong' do
     source recipe.package_path
+    version node['kong']['version']
     action :install
   end
 when 'rhel', 'fedora'
   yum_package 'kong' do
     source recipe.package_path
+    version node['kong']['version']
     options '--nogpgcheck'
     action :install
   end

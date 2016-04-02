@@ -107,9 +107,11 @@ describe 'kong::_from_package', order: :random do
         if node['platform_family'] == 'debian'
           expect(chef_run).to install_dpkg_package('kong')
             .with_source(package_path)
+            .with_version(version)
         else
           expect(chef_run).to install_yum_package('kong')
             .with_source(package_path)
+            .with_version(version)
         end
       end
     end # context on platform version
