@@ -65,19 +65,26 @@ when 'debian'
   end
 when 'rhel'
   default['kong']['required_packages'] = %w(sudo)
-  default['kong']['package_file'] =
-    "kong-%{version}.el#{node['platform_version'].to_i}.noarch.rpm"
-  case node['platform_version'].to_i
-  when 5
+  case node['platform']
+  when 'amazon'
+    default['kong']['package_file'] = 'kong-%{version}.aws.rpm'
     default['kong']['package_checksum'] =
-      'c881298d75bdcda380cf03e0d75b72238e997ce1d7035b1755a8a79595721386'
-  when 6
-    default['kong']['package_checksum'] =
-      '025807534a9cb9776af998b61165f9c4ed9707c01a249721843e4f4db0fa8982'
-  when 7
-    default['kong']['package_checksum'] =
-      '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
-  else raise "Unsupported CentOS version: #{node['platform_version']}"
+      '872ada6aa278989897815f3552c285c63b504d304037f8c64132d15d7f11778d'
+  else
+    default['kong']['package_file'] =
+      "kong-%{version}.el#{node['platform_version'].to_i}.noarch.rpm"
+    case node['platform_version'].to_i
+    when 5
+      default['kong']['package_checksum'] =
+        'c881298d75bdcda380cf03e0d75b72238e997ce1d7035b1755a8a79595721386'
+    when 6
+      default['kong']['package_checksum'] =
+        '025807534a9cb9776af998b61165f9c4ed9707c01a249721843e4f4db0fa8982'
+    when 7
+      default['kong']['package_checksum'] =
+        '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
+    else raise "Unsupported CentOS version: #{node['platform_version']}"
+    end
   end
 when 'fedora'
   default['kong']['required_packages'] = %w(sudo)

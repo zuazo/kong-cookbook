@@ -1,7 +1,5 @@
 ---
 driver:
-  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
-  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
 
 platforms:
@@ -50,22 +48,25 @@ platforms:
     flavor: 512MB
   run_list: recipe[apt]
 
-- name: amazon-2011.02.1
+- name: amazon-2015.09.2
   driver_plugin: ec2
   driver_config:
-    image_id: ami-8e1fece7
-    flavor_id: t1.micro
+    image_id: ami-d4f7ddbe
+    instance_type: m3.medium
+  transport:
     username: ec2-user
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 <% end %>
 
-- name: amazon-2013.09.2
-  driver_plugin: ec2
-  driver_config:
-    image_id: ami-bba18dd2
-    flavor_id: t1.micro
-    username: ec2-user
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
-<% end %>
+# https://github.com/Mashape/kong/issues/1100
+# - name: amazon-2016.03.0
+#   driver_plugin: ec2
+#   driver_config:
+#     image_id: ami-22111148
+#     instance_type: m3.medium
+#   transport:
+#     username: ec2-user
+# <% if ENV['SSH_AGENT_PID'].nil? %>
+#     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+# <% end %>

@@ -53,11 +53,10 @@ describe 'kong::_from_package', order: :random do
       requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
       file: "kong-#{version}.trusty_all.deb"
     },
-    # Still not supported by fauxhai:
-    # 'ubuntu@15.04' => {
-    #   requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-    #   file: "kong-#{version}.vivid_all.deb"
-    # },
+    'ubuntu@15.04' => {
+      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
+      file: "kong-#{version}.vivid_all.deb"
+    },
     'centos@5.10' => {
       requirements: %w(sudo),
       file: "kong-#{version}.el5.noarch.rpm"
@@ -69,6 +68,10 @@ describe 'kong::_from_package', order: :random do
     'centos@7.0' => {
       requirements: %w(sudo),
       file: "kong-#{version}.el7.noarch.rpm"
+    },
+    'amazon@2015.09' => {
+      requirements: %w(sudo),
+      file: "kong-#{version}.aws.rpm"
     }
   }
 

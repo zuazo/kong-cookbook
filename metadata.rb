@@ -36,6 +36,7 @@ if respond_to?(:issues_url)
   issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 end
 
+supports 'amazon'
 supports 'centos'
 supports 'debian'
 supports 'ubuntu'

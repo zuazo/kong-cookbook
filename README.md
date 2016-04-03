@@ -20,6 +20,7 @@ Requirements
 
 This cookbook has been tested on the following platforms:
 
+* Amazon Linux
 * CentOS
 * Debian
 * Ubuntu
