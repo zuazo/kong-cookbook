@@ -27,11 +27,10 @@ group :unit do
   gem 'simplecov', '~> 0.9'
   gem 'should_not', '~> 1.1'
   gem 'chefspec', '~> 4.1'
-  gem 'ohai', '~> 7.4' if RUBY_VERSION < '2'
 end
 
 group :integration do
-  gem 'test-kitchen', '~> 1.5'
+  gem 'test-kitchen', '~> 1.4' # < 1.5 to test Chef 11
 end
 
 group :integration_docker do
