@@ -3,6 +3,15 @@ kong CHANGELOG
 
 This file is used to list changes made in each version of the `kong` cookbook.
 
+## v0.4.0 (2016-04-03)
+
+* Add Amazon Linux support.
+* Support package version upgrade (thanks Jannes Pockelé).
+
+Testing:
+* Fix Travis with Chef 11.
+* Remove Travis exclude matrix (no longer needed).
+
 ## v0.3.0 (2016-03-30)
 
 * Remove Ruby `1.9` support (**breaking change**).
