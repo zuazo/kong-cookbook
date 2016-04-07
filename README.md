@@ -112,8 +112,8 @@ It is highly recommended to use an **external Cassandra server** with this cookb
 For example:
 
 ```ruby
-node.default['kong']['kong.yml']['databases_available']['cassandra']\
-  ['properties']['hosts'] = 'cassandra.example.com'
+node.default['kong']['kong.yml']['cassandra']['contact_points'] =
+  'cassandra.example.com'
 
 include_recipe 'kong'
 ```
