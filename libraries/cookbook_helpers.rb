@@ -167,6 +167,19 @@ class KongCookbook
       !(hosts & %w(localhost 127.0.0.1)).empty?
     end
 
+    # Calculates whether the postgres installation should be managed by the
+    # cookbook or not based only on the **Kong configuration**.
+    #
+    # Returns `true` if the `properties['contact_points']` value includes a
+    # *localhost* machine: `'localhost'` or `'127.0.0.1'`.
+    #
+    # @return [Boolean] `true` if postgres should be installed locally.
+    # @example
+    #   self.calculate_manage_postgres #=> true
+    # @api public
+    def calculate_manage_postgres
+    end
+
     # Calculates whether the Cassandra installation should be managed by the
     # cookbook or should not based on the **Node attributes* and the
     # **Kong configuration**.
@@ -181,6 +194,22 @@ class KongCookbook
     # @api public
     def manage_cassandra
       calculate_management('cassandra')
+    end
+
+    # Calculates whether the postgres installation should be managed by the
+    # cookbook or should not based on the **Node attributes* and the
+    # **Kong configuration**.
+    #
+    # Tries to read the value from `node['kong']['manage_postgres']` and
+    # calculates it if not set.
+    #
+    # @return [Boolean] `true` if postgres should be installed locally.
+    # @example
+    #   self.manage_postgres #=> true
+    # @see #calculate_manage_postgres
+    # @api public
+    def manage_postgres
+      calculate_management('postgres')
     end
 
     # Calculates whether the SSL certificate should be managed by the cookbook

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Cookbook Name:: kong
-# Recipe:: default
+# Recipe:: _postgresql
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2015 Xabier de Zuazo
 # License:: Apache License, Version 2.0
@@ -19,11 +19,29 @@
 # limitations under the License.
 #
 
-self.class.send(:include, ::KongCookbook::Helpers)
+apt_repository 'postgres' do
+  uri 'http://apt.postgresql.org/pub/repos/apt/'
+  distribution "#{node['lsb']['codename']}-pgdg"
+  components ['main']
+end
 
-include_recipe 'kong::_cassandra' if manage_cassandra
-include_recipe 'kong::_postgres' if manage_postgres
+include_recipe 'postgresql::server'
 
-include_recipe 'kong::_from_package'
-include_recipe 'kong::_configuration'
-include_recipe 'kong::_service'
+include_recipe 'database::postgresql'
+
+postgresql_connection_info = {
+  host: '127.0.0.1',
+  port: node['postgresql']['config']['port'],
+  username: 'postgres',
+  password: node['postgresql']['password']['postgres']
+}
+
+postgresql_database_user 'kong' do
+  connection postgresql_connection_info
+  password   'password'
+  action     :create
+end
+
+postgresql_database 'kong' do
+  connection postgresql_connection_info
+end
