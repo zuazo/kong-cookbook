@@ -44,6 +44,8 @@ supports 'ubuntu'
 depends 'cassandra-dse', '~> 4.0'
 depends 'netstat', '~> 0.1.0' # Required to check cassandra status
 depends 'ssl_certificate', '~> 1.1'
+depends 'postgresql', '~> 4.0.6'
+depends 'database', '~> 5.1.2'
 
 recipe 'kong::default', 'Installs and configures Kong.'
 recipe 'kong::cassandra', 'Installs and configures Cassandra.'

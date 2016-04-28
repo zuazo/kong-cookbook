@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-default['kong']['version'] = '0.7.0'
+default['kong']['version'] = '0.8.0'
 default['kong']['mirror'] =
   'https://github.com/Mashape/kong/releases/download/%{version}/'
 
@@ -55,7 +55,7 @@ when 'debian'
     when 14.04
       default['kong']['package_file'] = 'kong-%{version}.trusty_all.deb'
       default['kong']['package_checksum'] =
-        'cbf79d45ccdcbd5c4b988e84526aa2b752c1cd4084004c50c8aa131d74edfd67'
+        'c70ff941d22177228550b5eaa7bb443e5fdcffdd4b7ed0df65c034bbcb1ef5b7'
     when 15.04
       default['kong']['package_file'] = 'kong-%{version}.vivid_all.deb'
       default['kong']['package_checksum'] =
@@ -97,6 +97,7 @@ end
 default['kong']['manage_ssl_certificate'] = nil
 default['kong']['wait_for_cassandra'] = 300
 default['kong']['manage_cassandra'] = nil
+default['kong']['manage_postgres'] = nil
 
 if Gem::Requirement.new('>= 0.6.0')
                    .satisfied_by?(Gem::Version.new(node['kong']['version']))

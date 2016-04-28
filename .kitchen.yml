@@ -32,3 +32,12 @@ suites:
 - name: default
   run_list:
   - recipe[kong_test]
+- name: postgresql
+  run_list:
+    - recipe[kong_test]
+  attributes:
+    kong:
+      kong.yml:
+        database: postgres
+      manage_postgres: true
+      manage_cassandra: false
