@@ -28,8 +28,11 @@ default_postgres['user'] = 'kong'
 default_postgres['password'] = 'password'
 
 # kong requires a minimum of 9.4 to start.
-default['postgresql']['version'] = "9.4"
-default['postgresql']['dir'] = "/etc/postgresql/9.4/main"
-default['postgresql']['client']['packages'] = ["postgresql-client-9.4", "libpq-dev"]
-default['postgresql']['server']['packages'] = ["postgresql-9.4"]
-default['postgresql']['contrib']['packages'] = ["postgresql-contrib-9.4"]
+default['postgresql']['version'] = '9.4'
+default['postgresql']['dir'] = '/etc/postgresql/9.4/main'
+default['postgresql']['client']['packages'] = [
+  'postgresql-client-9.4',
+  'libpq-dev'
+]
+default['postgresql']['server']['packages'] = ['postgresql-9.4']
+default['postgresql']['contrib']['packages'] = ['postgresql-contrib-9.4']

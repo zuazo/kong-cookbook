@@ -20,7 +20,7 @@
 #
 
 apt_repository 'postgres' do
-  uri        'http://apt.postgresql.org/pub/repos/apt/'
+  uri 'http://apt.postgresql.org/pub/repos/apt/'
   distribution "#{node['lsb']['codename']}-pgdg"
   components ['main']
 end
@@ -30,10 +30,10 @@ include_recipe 'postgresql::server'
 include_recipe 'database::postgresql'
 
 postgresql_connection_info = {
-  :host     => '127.0.0.1',
-  :port     => node['postgresql']['config']['port'],
-  :username => 'postgres',
-  :password => node['postgresql']['password']['postgres']
+  host: '127.0.0.1',
+  port: node['postgresql']['config']['port'],
+  username: 'postgres',
+  password: node['postgresql']['password']['postgres']
 }
 
 postgresql_database_user 'kong' do

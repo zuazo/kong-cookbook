@@ -180,7 +180,6 @@ class KongCookbook
     def calculate_manage_postgres
     end
 
-
     # Calculates whether the Cassandra installation should be managed by the
     # cookbook or should not based on the **Node attributes* and the
     # **Kong configuration**.
