@@ -53,7 +53,7 @@ attribute 'kong/version',
           description: 'Kong version to install.',
           type: 'string',
           required: 'optional',
-          default: '0.7.0'
+          default: '0.8.2'
 
 attribute 'kong/mirror',
           display_name: 'kong mirror',

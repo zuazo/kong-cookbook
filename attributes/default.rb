@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-default['kong']['version'] = '0.7.0'
+default['kong']['version'] = '0.8.2'
 default['kong']['mirror'] =
   'https://github.com/Mashape/kong/releases/download/%{version}/'
 
@@ -31,17 +31,18 @@ when 'debian'
       %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq)
     case node['platform_version'].to_i
     when 6
+      default['kong']['version'] = '0.7.0' # version 0.8.0 is not supported
       default['kong']['package_file'] = 'kong-%{version}.squeeze_all.deb'
       default['kong']['package_checksum'] =
         '42b247465a9380c26ae7fbb2bcd2f7bfc0622c2740e6ac4e05e4b8106618b1db'
     when 7
       default['kong']['package_file'] = 'kong-%{version}.wheezy_all.deb'
       default['kong']['package_checksum'] =
-        'e1b08a3f4b6dc970f73821d015771f7b820c2b1d51d68359056bf6352a4347e0'
+        '1bdf804482328dabc15d862be61b6fa8831ca2aea3811b167d4083475d2f86d9'
     when 8
       default['kong']['package_file'] = 'kong-%{version}.jessie_all.deb'
       default['kong']['package_checksum'] =
-        'e34166fe1616819ebae99f94b131335f905b2119ef4ba10e9ecf1d077a33b9dc'
+        'a390008a0765dd061b64e4877eceb4a50c2dc59736c2883b4d9a5927d0fbd470'
     else raise "Unsupported Debian version: #{node['platform_version']}"
     end
   when 'ubuntu'
@@ -51,15 +52,15 @@ when 'debian'
     when 12.04
       default['kong']['package_file'] = 'kong-%{version}.precise_all.deb'
       default['kong']['package_checksum'] =
-        '9583ec05c4190d9c9b796d33559c3c9bfbc3e94619d636bbad825feb57984e5e'
+        'f54e32f5f1886b820ed02e57b1dcda07f341c76b65b4626c8e3383fcea3e786e'
     when 14.04
       default['kong']['package_file'] = 'kong-%{version}.trusty_all.deb'
       default['kong']['package_checksum'] =
-        'cbf79d45ccdcbd5c4b988e84526aa2b752c1cd4084004c50c8aa131d74edfd67'
+        '93d723580481835026bd1666f9bc564485913b3976a45f06ebfaa6c9bd47a554'
     when 15.04
       default['kong']['package_file'] = 'kong-%{version}.vivid_all.deb'
       default['kong']['package_checksum'] =
-        'b6e2b571f90cb2974e6dbbd46e9389b968d1f9d36463514e0e4a8890891dd426'
+        '4c5a7c4ef3d5c1bf34f51ed2743febc863013182be04b992239eb42bb7eb25ef'
     else raise "Unsupported Ubuntu version: #{node['platform_version']}"
     end
   end
@@ -69,20 +70,20 @@ when 'rhel'
   when 'amazon'
     default['kong']['package_file'] = 'kong-%{version}.aws.rpm'
     default['kong']['package_checksum'] =
-      '872ada6aa278989897815f3552c285c63b504d304037f8c64132d15d7f11778d'
+      '2be206f8c27b44670c5c4e1306de4821c4951a024c5328ab04f39740ee59a99b'
   else
     default['kong']['package_file'] =
       "kong-%{version}.el#{node['platform_version'].to_i}.noarch.rpm"
     case node['platform_version'].to_i
     when 5
       default['kong']['package_checksum'] =
-        'c881298d75bdcda380cf03e0d75b72238e997ce1d7035b1755a8a79595721386'
+        'e85dceac3121b1ecd013ad4aa79c63c1ac09af8944951df28426602ea256f809'
     when 6
       default['kong']['package_checksum'] =
-        '025807534a9cb9776af998b61165f9c4ed9707c01a249721843e4f4db0fa8982'
+        '9df585771354e8076ab9247be05ef3bace33a618559521551dc7b9061defe4cc'
     when 7
       default['kong']['package_checksum'] =
-        '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
+        'cf11e394951ce08da71d9766716a022d6eec525b2a4f2dfc67a165266b61cb75'
     else raise "Unsupported CentOS version: #{node['platform_version']}"
     end
   end
@@ -90,7 +91,7 @@ when 'fedora'
   default['kong']['required_packages'] = %w(sudo)
   default['kong']['package_file'] = 'kong-%{version}.el7.noarch.rpm'
   default['kong']['package_checksum'] =
-    '34d145ec8195ed644df52ea7e5ff96e14912804766f89cee1738ea04dcfbd7ac'
+    'cf11e394951ce08da71d9766716a022d6eec525b2a4f2dfc67a165266b61cb75'
 else raise "Unsupported platform family: #{node['platform_family']}"
 end
 

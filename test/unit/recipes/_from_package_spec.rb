@@ -20,81 +20,36 @@
 require_relative '../spec_helper'
 
 describe 'kong::_from_package', order: :random do
+  version = '0.8.2'
+
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
-  version = '0.7.0'
-  let(:mirror) do
-    "https://github.com/Mashape/kong/releases/download/#{version}/"
-  end
+  let(:mirror) { 'https://github.com/Mashape/kong/releases/download' }
 
-  it 'installs sudo package' do
-    expect(chef_run).to install_package('sudo')
-  end
-
-  distro_packages = {
-    'debian@6.0.5' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.squeeze_all.deb"
-    },
-    'debian@7.0' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.wheezy_all.deb"
-    },
-    'debian@8.0' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.jessie_all.deb"
-    },
-    'ubuntu@12.04' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.precise_all.deb"
-    },
-    'ubuntu@14.04' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.trusty_all.deb"
-    },
-    'ubuntu@15.04' => {
-      requirements: %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq),
-      file: "kong-#{version}.vivid_all.deb"
-    },
-    'centos@5.10' => {
-      requirements: %w(sudo),
-      file: "kong-#{version}.el5.noarch.rpm"
-    },
-    'centos@6.0' => {
-      requirements: %w(sudo),
-      file: "kong-#{version}.el6.noarch.rpm"
-    },
-    'centos@7.0' => {
-      requirements: %w(sudo),
-      file: "kong-#{version}.el7.noarch.rpm"
-    },
-    'amazon@2015.09' => {
-      requirements: %w(sudo),
-      file: "kong-#{version}.aws.rpm"
-    }
-  }
-
-  distro_packages.each do |distro, packages|
-    platform, platform_version = distro.split('@', 2)
+  shared_examples 'test platform' do |platform, info|
+    platform, platform_version = platform.split('@', 2)
+    package = info[:package]
+    requirements = info[:requirements] || []
+    package_version = info[:version] || version
 
     context "on #{platform.capitalize} #{platform_version}" do
       let(:chef_runner) do
         ChefSpec::SoloRunner.new(platform: platform, version: platform_version)
       end
-      let(:package_source) { "#{mirror}#{packages[:file]}" }
+      let(:package_source) { "#{mirror}/#{package_version}/#{package}" }
       let(:package_path) do
-        ::File.join(Chef::Config[:file_cache_path], packages[:file])
+        ::File.join(Chef::Config[:file_cache_path], package)
       end
 
-      packages[:requirements].each do |requirement|
+      requirements.each do |requirement|
         it "installs #{requirement} package" do
           expect(chef_run).to install_package(requirement)
         end
       end # requirements each
 
       it 'downloads the kong package' do
-        expect(chef_run).to create_remote_file(packages[:file])
+        expect(chef_run).to create_remote_file(package)
           .with_path(package_path)
           .with_source([package_source])
           .with_mode(00644)
@@ -110,13 +65,62 @@ describe 'kong::_from_package', order: :random do
         if node['platform_family'] == 'debian'
           expect(chef_run).to install_dpkg_package('kong')
             .with_source(package_path)
-            .with_version(version)
+            .with_version(package_version)
         else
           expect(chef_run).to install_yum_package('kong')
             .with_source(package_path)
-            .with_version(version)
+            .with_version(package_version)
         end
       end
     end # context on platform version
-  end # distro packages each
+  end # shared examples test platform
+
+  it 'installs sudo package' do
+    expect(chef_run).to install_package('sudo')
+  end
+
+  debian_requirements = %w(sudo netcat lua5.1 openssl libpcre3 dnsmasq)
+  centos_requirements = %w(sudo)
+
+  include_examples 'test platform', 'debian@6.0.5',
+                   # Next versions are not available for Debian 6:
+                   version: '0.7.0',
+                   package: 'kong-0.7.0.squeeze_all.deb',
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'debian@7.0',
+                   package: "kong-#{version}.wheezy_all.deb",
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'debian@8.0',
+                   package: "kong-#{version}.jessie_all.deb",
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'ubuntu@12.04',
+                   package: "kong-#{version}.precise_all.deb",
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'ubuntu@14.04',
+                   package: "kong-#{version}.trusty_all.deb",
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'ubuntu@15.04',
+                   package: "kong-#{version}.vivid_all.deb",
+                   requirements: debian_requirements
+
+  include_examples 'test platform', 'centos@5.10',
+                   package: "kong-#{version}.el5.noarch.rpm",
+                   requirements: centos_requirements
+
+  include_examples 'test platform', 'centos@6.0',
+                   package: "kong-#{version}.el6.noarch.rpm",
+                   requirements: centos_requirements
+
+  include_examples 'test platform', 'centos@7.0',
+                   package: "kong-#{version}.el7.noarch.rpm",
+                   requirements: centos_requirements
+
+  include_examples 'test platform', 'amazon@2015.09',
+                   package: "kong-#{version}.aws.rpm",
+                   requirements: centos_requirements
 end

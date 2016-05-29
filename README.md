@@ -42,7 +42,7 @@ Attributes
 
 | Attribute                                | Default      | Description                      |
 |:-----------------------------------------|:-------------|:---------------------------------|
-| `node['kong']['version']`                | `'0.7.0'`    | Kong version to install.
+| `node['kong']['version']`                | `'0.8.2'`    | Kong version to install.
 | `node['kong']['mirror']`                 | *calculated* | Kong URL path without including the file name.
 | `node['kong']['kong.yml']`               | *calculated* | Kong *YAML* configuration options. See [the default configuration values](https://github.com/zuazo/kong-cookbook/blob/master/attributes/configuration.rb).
 | `node['kong']['manage_ssl_certificate']` | *calculated* | Whether to manage HTTPS certificate creation using the [`ssl_certificate`](https://supermarket.chef.io/cookbooks/ssl_certificate) cookbook.

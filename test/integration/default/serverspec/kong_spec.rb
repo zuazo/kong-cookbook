@@ -77,7 +77,7 @@ describe server(:web) do
     end
 
     it 'returns Kong tagline' do
-      expect(body_json['tagline']).to include('Kong')
+      expect(body_json['tagline']).to match(/kong/i)
     end
 
     it 'returns Kong version' do
