@@ -2,7 +2,7 @@ machine:
   services:
   - docker
   ruby:
-    version: 2.2.2
+    version: 2.3.0
   environment:
     TESTS: debian ubuntu-12 ubuntu-14 ubuntu-15
 
