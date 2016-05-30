@@ -18,8 +18,8 @@ group :test do
 end
 
 group :style do
-  gem 'foodcritic', '~> 6.1.0'
-  gem 'rubocop', '~> 0.39.0'
+  gem 'foodcritic', '~> 6.3.0'
+  gem 'rubocop', '~> 0.40.0'
 end
 
 group :unit do
