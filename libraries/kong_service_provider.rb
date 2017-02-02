@@ -59,7 +59,7 @@ class KongCookbook
     #   kong_supports_action?(:start) #=> true
     # @private
     def kong_supports_action?(action)
-      cmd = shell_out("'#{init_command.delete("'")}' | grep -F #{action}")
+      cmd = shell_out("'#{init_command.delete("'")}' 2>&1 | grep -F #{action}")
       cmd.status.success?
     end
 
