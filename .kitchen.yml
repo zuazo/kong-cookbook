@@ -14,6 +14,11 @@ provisioner:
   name: chef_zero
   require_chef_omnibus: true
 
+# Preparing for Chef 13
+client_rb:
+  treat_deprecation_warnings_as_errors: true
+  resource_cloning: false
+
 platforms:
 - name: centos-6.7
 - name: centos-7.2
