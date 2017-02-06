@@ -35,7 +35,8 @@ Please, [let me know](https://github.com/zuazo/kong-cookbook/issues/new?title=I%
 
 ## Required Applications
 
-* Ruby `2.0.0` or higher.
+* Chef `12` or higher.
+* Ruby `2.2` or higher.
 
 Attributes
 ==========

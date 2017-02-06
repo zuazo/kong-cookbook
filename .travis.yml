@@ -1,14 +1,10 @@
 rvm:
-- 2.0.0
-- 2.1
 - 2.2
+- 2.3
 
-sudo: false
-
-cache: bundler
+sudo: required
 
 env:
-- CHEF_VERSION="~> 11.0"
 - CHEF_VERSION="~> 12.0"
 
 matrix:
@@ -17,9 +13,10 @@ matrix:
   - rvm: 2.0.0
     env: CHEF_VERSION="~> 12.0"
 
-before_install: gem install bundler # Update bundler
+before_install:
+- gem install bundler # Update bundler
+- gem update --system # https://github.com/sickill/rainbow/issues/48
 
 bundler_args: --jobs=3 --retry=3 --without='doc integration integration_docker integration_vagrant integration_cloud guard'
 
-script:
-- bundle exec rake style unit
+script: travis_retry bundle exec rake style unit
