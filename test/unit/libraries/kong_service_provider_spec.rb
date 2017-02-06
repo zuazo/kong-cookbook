@@ -81,7 +81,7 @@ describe KongCookbook::KongServiceProvider, order: :random do
 
   context '#kong_supports_action?' do
     let(:action) { 'action' }
-    let(:cmd) { "'kong' | grep -F #{action}" }
+    let(:cmd) { "'kong' 2>&1 | grep -F #{action}" }
     before do
       allow(provider).to receive(:shell_out).with(cmd).and_return(shellout)
     end
@@ -104,7 +104,7 @@ describe KongCookbook::KongServiceProvider, order: :random do
       allow(provider).to receive(:shell_out).with(cmd).and_return(shellout)
       %w(start stop restart reload).each do |action|
         allow(provider).to receive(:shell_out)
-          .with("'kong' | grep -F #{action}").and_return(shellout)
+          .with("'kong' 2>&1 | grep -F #{action}").and_return(shellout)
       end
     end
 
