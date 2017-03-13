@@ -35,7 +35,7 @@ end
 
 template '/etc/kong/kong.yml' do
   source 'kong.yml.erb'
-  cookbook 'kong'
+  cookbook node['kong']['kong.yml']['template']['cookbook']
   mode 00644
   variables(
     manage_ssl_certificate: recipe.manage_ssl_certificate,
