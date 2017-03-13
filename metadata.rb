@@ -125,3 +125,11 @@ attribute 'kong/package_checksum',
           type: 'string',
           required: 'optional',
           calculated: true
+
+attribute 'kong/kong.yml/template/cookbook',
+          display_name: 'kong template cookbook',
+          description: 'Whether to get kong template from current cookbook'\
+                       'or from wrapped cookbook',
+          type: 'string',
+          required: 'optional',
+          default: 'kong'
