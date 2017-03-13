@@ -34,3 +34,4 @@ default_cassandra['timeout'] = 5000
 # the `https` port:
 default['kong']['kong.yml']['ssl_cert_path'] = nil
 default['kong']['kong.yml']['ssl_key_path'] = nil
+default['kong']['kong.yml']['template']['cookbook'] = 'kong'
