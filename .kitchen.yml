@@ -32,6 +32,8 @@ platforms:
   run_list: recipe[apt]
 - name: ubuntu-15.04
   run_list: recipe[apt]
+- name: ubuntu-16.04
+  run_list: recipe[apt]
 
 suites:
 - name: default

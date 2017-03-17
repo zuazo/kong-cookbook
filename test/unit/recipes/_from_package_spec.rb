@@ -108,6 +108,12 @@ describe 'kong::_from_package', order: :random do
                    package: "kong-#{version}.vivid_all.deb",
                    requirements: debian_requirements
 
+  include_examples 'test platform', 'ubuntu@16.04',
+                   # Earlier versions are not available for Ubuntu 16:
+                   version: '0.8.3',
+                   package: 'kong-0.8.3.xenial_all.deb',
+                   requirements: debian_requirements
+
   include_examples 'test platform', 'centos@5.10',
                    package: "kong-#{version}.el5.noarch.rpm",
                    requirements: centos_requirements
