@@ -61,6 +61,11 @@ when 'debian'
       default['kong']['package_file'] = 'kong-%{version}.vivid_all.deb'
       default['kong']['package_checksum'] =
         '4c5a7c4ef3d5c1bf34f51ed2743febc863013182be04b992239eb42bb7eb25ef'
+    when 16.04
+      default['kong']['version'] = '0.8.3' # version 0.8.2 is not supported
+      default['kong']['package_file'] = 'kong-%{version}.xenial_all.deb'
+      default['kong']['package_checksum'] =
+        '4e2fcdaaee8983176425af72bbb47a72164249407e04695c55d7bc67820bb6d1'
     else raise "Unsupported Ubuntu version: #{node['platform_version']}"
     end
   end
