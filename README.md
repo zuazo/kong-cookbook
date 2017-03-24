@@ -172,6 +172,8 @@ License and Author
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@zuazo.org>)
+| **Contributor:**     | [Igor Moroz](https://github.com/igormr)
+| **Contributor:**     | [Yves Jans](https://github.com/yvesjans)
 | **Copyright:**       | Copyright (c) 2015-2016, Xabier de Zuazo
 | **License:**         | Apache License, Version 2.0
 
