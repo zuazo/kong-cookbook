@@ -3,6 +3,17 @@ kong CHANGELOG
 
 This file is used to list changes made in each version of the `kong` cookbook.
 
+## v0.5.0 (2017-03-24)
+
+* Require Chef `12` and Ruby >= `2.2` (**breaking change**).
+* Quote yaml strings containing `.` or `:` ([issue #6](https://github.com/zuazo/kong-cookbook/pull/6), thanks [Mark Keisler](https://github.com/grimm26)).
+* Fix for `0.9`.x versions ([issue #7](https://github.com/zuazo/kong-cookbook/pull/7), thanks [Alexander Vynnyk](https://github.com/cosmonaut-ok)).
+* Move yml template cookbook to attributes ([issue #10](https://github.com/zuazo/kong-cookbook/pull/10), thanks [Igor Moroz](https://github.com/igormr)).
+* Add support for Ubuntu `16.04` (Xenial) ([issue #11](https://github.com/zuazo/kong-cookbook/pull/11), thanks [Yves Jans](https://github.com/yvesjans)).
+* Update kong version to `0.8.2`.
+* Update foodcritic to `6.3` and RuboCop to `0.40`.
+* README: Update *Configuring the Cassandra Server Address* documentation.
+
 ## v0.4.0 (2016-04-03)
 
 * Add Amazon Linux support.
