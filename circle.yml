@@ -5,6 +5,7 @@ machine:
     version: 2.3.0
   environment:
     TESTS: debian ubuntu-12 ubuntu-14 ubuntu-15
+    CHEF_VERSION: ~> 12.0
 
 dependencies:
   override:
