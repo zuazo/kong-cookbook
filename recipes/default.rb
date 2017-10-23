@@ -21,6 +21,8 @@
 
 self.class.send(:include, ::KongCookbook::Helpers)
 
+#if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
+
 include_recipe 'kong::cassandra' if manage_cassandra
 include_recipe 'kong::_from_package'
 include_recipe 'kong::_configuration'

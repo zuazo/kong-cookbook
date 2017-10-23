@@ -33,14 +33,24 @@ if manage_ssl_certificate
   node.default['kong']['kong.yml']['ssl_cert_path'] = cert.cert_path
 end
 
-template '/etc/kong/kong.yml' do
-  source 'kong.yml.erb'
-  cookbook node['kong']['kong.yml']['template']['cookbook']
-  mode 00644
-  variables(
-    manage_ssl_certificate: recipe.manage_ssl_certificate,
-    config: node['kong']['kong.yml']
-  )
-  notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
-  notifies :restart, 'service[kong]'
+if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
+  template '/etc/kong/kong.conf' do
+    source 'kong.conf.erb'
+    mode 00644
+    variables(
+      config: node['kong']['kong.conf']
+    )
+  end
+else
+  template '/etc/kong/kong.yml' do
+    source 'kong.yml.erb'
+    cookbook node['kong']['kong.yml']['template']['cookbook']
+    mode 00644
+    variables(
+      manage_ssl_certificate: recipe.manage_ssl_certificate,
+      config: node['kong']['kong.yml']
+    )
+    notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
+    notifies :restart, 'service[kong]'
+  end
 end

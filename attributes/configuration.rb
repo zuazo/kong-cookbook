@@ -19,6 +19,9 @@
 # limitations under the License.
 #
 
+default['kong']['kong.conf'] = {}
+default['kong']['kong.conf']['database'] = 'cassandra'
+  
 default['kong']['kong.yml'] = Mash.new
 
 # Specify which database to use:
