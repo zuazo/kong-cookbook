@@ -74,4 +74,11 @@ describe 'kong::default', order: :random do
     let(:resource) { chef_run.template('/etc/kong/kong.yml') }
     it_behaves_like 'restarts kong'
   end
+
+  it 'creates kong.conf configuration file' do
+    expect(chef_run).to create_template('/etc/kong/kong.yml')
+      .with_source('kong.conf.erb')
+      .with_cookbook('kong')
+      .with_mode(00644)
+  end
 end
