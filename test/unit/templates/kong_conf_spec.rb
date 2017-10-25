@@ -26,15 +26,23 @@ describe 'kong.conf template', order: :random do
   let(:variables) { { config: node['kong']['kong.conf'] } }
 
   context 'with default configuration' do
-    it 'does not quote database' do
+    it 'database exists' do
       expect(template.render(variables)).to match(/^\s*database\s+=\s+[a-zA-Z]+$/)
     end
 
-    it 'does not quote keyspace' do
+    it 'cassandra_keyspace exists' do
       expect(template.render(variables)).to match(/^\s*cassandra_keyspace\s+=\s+[a-zA-Z]+$/)
     end
+    
+    it 'cassandra_contact_points exists' do
+      expect(template.render(variables)).to match(/^\s*cassandra_contact_points\s+=\s+[a-zA-Z]+$/)
+    end
+    
+    it 'cassandra_port exists' do
+      expect(template.render(variables)).to match(/^\s*cassandra_port\s+=\s+[0-9]+$/)
+    end
 
-    it 'does not quote timeout' do
+    it 'cassandra_timeout exists' do
       expect(template.render(variables)).to match(/^\s*cassandra_timeout\s+=\s+[0-9]+$/)
     end
   end
