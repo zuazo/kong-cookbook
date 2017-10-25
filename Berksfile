@@ -6,7 +6,7 @@
 
 source 'https://supermarket.chef.io'
 my_cookbook = 'kong'
-cookbook 'serf', path: '../serf'
+
 # Berkshelf helper to include a local cookbook from disk.
 #
 # @param name [String] cookbook name.
