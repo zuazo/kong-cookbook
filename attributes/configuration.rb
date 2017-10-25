@@ -21,7 +21,7 @@
 
 default['kong']['kong.conf'] = {}
 default['kong']['kong.conf']['database'] = 'cassandra'
-  
+
 default['kong']['kong.yml'] = Mash.new
 
 # Specify which database to use:
@@ -33,8 +33,19 @@ default_cassandra['contact_points'] = %w(localhost:9042)
 default_cassandra['keyspace'] = 'kong'
 default_cassandra['timeout'] = 5000
 
+# Configuration for kong.conf
+default_cassandra_conf = default['kong']['kong.conf']
+default_cassandra_conf['cassandra_contact_points'] = 'localhost'
+default_cassandra_conf['cassandra_port'] = '9042'
+default_cassandra_conf['cassandra_keyspace'] = 'kong'
+default_cassandra_conf['cassandra_timeout'] = 5000
+
 # The path to the SSL certificate and key that Kong will use when listening on
 # the `https` port:
 default['kong']['kong.yml']['ssl_cert_path'] = nil
 default['kong']['kong.yml']['ssl_key_path'] = nil
 default['kong']['kong.yml']['template']['cookbook'] = 'kong'
+
+# Configuration for kong.conf
+default['kong']['kong.conf']['ssl_cert_path'] = nil
+default['kong']['kong.conf']['ssl_key_path'] = nil

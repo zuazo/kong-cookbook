@@ -22,7 +22,6 @@ end
 metadata
 cookbook 'apt'
 cookbook 'freebsd'
-#cookbook 'serf', '= 1.1.1', github: 'akilleen/serf'
 
 # Minitest Chef Handler
 # More info at https://github.com/calavera/minitest-chef-handler

@@ -95,7 +95,7 @@ describe 'kong::default', order: :random do
       expect(node['kong']['pid_file']).to eq '/usr/local/kong/nginx.pid'
     end
   end
-  
+
   context 'with version 0.10.3' do
     before { node.set['kong']['version'] = '0.10.3' }
 
