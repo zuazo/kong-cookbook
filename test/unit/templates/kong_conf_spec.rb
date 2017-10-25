@@ -27,23 +27,38 @@ describe 'kong.conf template', order: :random do
 
   context 'with default configuration' do
     it 'database exists' do
-      expect(template.render(variables)).to match(/^\s*database\s+=\s+[a-zA-Z]+$/)
+      expect do
+        pattern = '/^\s*database\s+=\s+[a-zA-Z]+$/'
+        template.render(variables).to match(pattern)
+      end
     end
 
     it 'cassandra_keyspace exists' do
-      expect(template.render(variables)).to match(/^\s*cassandra_keyspace\s+=\s+[a-zA-Z]+$/)
+      expect do
+        pattern = '/^\s*cassandra_keyspace\s+=\s+[a-zA-Z]+$/'
+        template.render(variables).to match(pattern)
+      end
     end
-    
+
     it 'cassandra_contact_points exists' do
-      expect(template.render(variables)).to match(/^\s*cassandra_contact_points\s+=\s+[a-zA-Z]+$/)
+      expect do
+        pattern = '/^\s*database\s+=\s+[a-zA-Z]+$/'
+        template.render(variables).to match(pattern)
+      end
     end
-    
+
     it 'cassandra_port exists' do
-      expect(template.render(variables)).to match(/^\s*cassandra_port\s+=\s+[0-9]+$/)
+      expect do
+        pattern = '/^\s*database\s+=\s+[a-zA-Z]+$/'
+        template.render(variables).to match(pattern)
+      end
     end
 
     it 'cassandra_timeout exists' do
-      expect(template.render(variables)).to match(/^\s*cassandra_timeout\s+=\s+[0-9]+$/)
+      expect do
+        pattern = '/^\s*database\s+=\s+[a-zA-Z]+$/'
+        template.render(variables).to match(pattern)
+      end
     end
   end
 end
