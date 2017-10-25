@@ -21,19 +21,18 @@
 
 self.class.send(:include, ::KongCookbook::Helpers)
 recipe = self
+if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
+  if manage_ssl_certificate
+    cert = ssl_certificate 'kong' do
+      namespace node['kong']
+      notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
+      notifies :restart, 'service[kong]'
+    end
 
-if manage_ssl_certificate
-  cert = ssl_certificate 'kong' do
-    namespace node['kong']
-    notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
-    notifies :restart, 'service[kong]'
+    node.default['kong']['kong.yml']['ssl_key_path'] = cert.key_path
+    node.default['kong']['kong.yml']['ssl_cert_path'] = cert.cert_path
   end
 
-  node.default['kong']['kong.yml']['ssl_key_path'] = cert.key_path
-  node.default['kong']['kong.yml']['ssl_cert_path'] = cert.cert_path
-end
-
-if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
   template '/etc/kong/kong.conf' do
     source 'kong.conf.erb'
     mode 00644
@@ -42,6 +41,17 @@ if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
     )
   end
 else
+  if manage_ssl_certificate
+    cert = ssl_certificate 'kong' do
+      namespace node['kong']
+      notifies :run, 'ruby_block[wait for cassandra]' if recipe.manage_cassandra
+      notifies :restart, 'service[kong]'
+    end
+
+    node.default['kong']['kong.yml']['ssl_key_path'] = cert.key_path
+    node.default['kong']['kong.yml']['ssl_cert_path'] = cert.cert_path
+  end
+
   template '/etc/kong/kong.yml' do
     source 'kong.yml.erb'
     cookbook node['kong']['kong.yml']['template']['cookbook']
