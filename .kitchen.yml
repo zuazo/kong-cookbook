@@ -39,10 +39,3 @@ suites:
 - name: default
   run_list:
   - recipe[kong_test]
-- name: kong-0.10.3
-  run_list:
-  - recipe[kong_test]
-  attributes:
-    kong:
-      version: 0.10.3
-      package_checksum: eb46522783bcd1799a3a6647abb300b466b4f2570d0ebd43bf2b11b401d7e2d3
