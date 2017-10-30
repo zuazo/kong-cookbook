@@ -32,6 +32,7 @@ Please, [let me know](https://github.com/zuazo/kong-cookbook/issues/new?title=I%
 * [cassandra-dse](https://supermarket.chef.io/cookbooks/cassandra-dse)
 * [netstat](https://supermarket.chef.io/cookbooks/netstat)
 * [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
+* [serf](https://supermarket.chef.io/cookbooks/serf)
 
 ## Required Applications
 
