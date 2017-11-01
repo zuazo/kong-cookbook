@@ -101,7 +101,7 @@ describe 'kong::default', order: :random do
 
     it 'has nginx.pid as pid file' do
       chef_run
-      expect(node['kong']['pid_file']).to eq '/usr/local/kong/nginx.pid'
+      expect(node['kong']['pid_file']).to eq '/usr/local/kong/pids/nginx.pid'
     end
   end
 end

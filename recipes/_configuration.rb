@@ -33,6 +33,8 @@ if Gem::Version.new(node['kong']['version']) >= Gem::Version.new('0.9.0')
     node.default['kong']['kong.yml']['ssl_cert_path'] = cert.cert_path
   end
 
+  node.default['kong']['pid_file'] = '/usr/local/kong/pids/nginx.pid'
+
   template '/etc/kong/kong.conf' do
     source 'kong.conf.erb'
     mode 00644
