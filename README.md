@@ -32,6 +32,7 @@ Please, [let me know](https://github.com/zuazo/kong-cookbook/issues/new?title=I%
 * [cassandra-dse](https://supermarket.chef.io/cookbooks/cassandra-dse)
 * [netstat](https://supermarket.chef.io/cookbooks/netstat)
 * [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
+* [serf](https://supermarket.chef.io/cookbooks/serf)
 
 ## Required Applications
 
@@ -46,6 +47,7 @@ Attributes
 | `node['kong']['version']`                | `'0.8.2'`    | Kong version to install.
 | `node['kong']['mirror']`                 | *calculated* | Kong URL path without including the file name.
 | `node['kong']['kong.yml']`               | *calculated* | Kong *YAML* configuration options. See [the default configuration values](https://github.com/zuazo/kong-cookbook/blob/master/attributes/configuration.rb).
+| `node['kong']['kong.conf']`              | *calculated* | Kong .conf configuration options for versions 0.9.0 and above. See [the default configuration values](https://github.com/zuazo/kong-cookbook/blob/master/attributes/configuration.rb).
 | `node['kong']['manage_ssl_certificate']` | *calculated* | Whether to manage HTTPS certificate creation using the [`ssl_certificate`](https://supermarket.chef.io/cookbooks/ssl_certificate) cookbook.
 | `node['kong']['manage_cassandra']`       | *calculated* | Whether to manage Cassandra server installation using the [`cassandra-dse`](https://supermarket.chef.io/cookbooks/cassandra-dse) cookbook.
 | `node['kong']['wait_for_cassandra']`     | `300`        | Time in seconds to wait for Cassandra to start. Only used with `manage_cassandra` enabled.
@@ -115,6 +117,15 @@ For example:
 
 ```ruby
 node.default['kong']['kong.yml']['cassandra']['contact_points'] =
+  'cassandra.example.com'
+
+include_recipe 'kong'
+```
+
+Or for kong.conf:
+
+```ruby
+node.default['kong']['kong.conf']['cassandra_contact_points'] =
   'cassandra.example.com'
 
 include_recipe 'kong'
